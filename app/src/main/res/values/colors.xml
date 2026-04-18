@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="R">#FF0000</color>
+    <color name="V">#00FF00</color>
+    <color name="M">#FF00FF</color>
+    <color name="Y">#FFFF00</color>
+    <color name="B"> #0000FF</color>
+    <color name="C">#00FFFF</color>
+
+</resources>
