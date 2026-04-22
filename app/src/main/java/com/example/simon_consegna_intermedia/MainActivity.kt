@@ -34,6 +34,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.constraintlayout.compose.Dimension
 import androidx.compose.ui.platform.LocalConfiguration
+import com.example.simon_consegna_intermedia.ui.components.GameButton
 import com.example.simon_consegna_intermedia.ui.theme.Simon_Consegna_IntermediaTheme
 import com.example.simon_consegna_intermedia.ui.theme.colorMap
 
@@ -59,7 +60,7 @@ fun mainActivityScreen(modifier: Modifier= Modifier){
     var partita by remember { mutableStateOf<String>("") }
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     ConstraintLayout(modifier = modifier.fillMaxWidth()) {
-        val (columnMatrix, textPartita)=createRefs()
+        val (columnMatrix, textPartita,buttons)=createRefs()
 
         ColumnMatrix(
             screenHeight = screenHeight*0.8f,
@@ -87,6 +88,12 @@ fun mainActivityScreen(modifier: Modifier= Modifier){
             fontStyle = FontStyle.Italic
         )
 
+        GameButton({partita=""},{
+            partite.add(partita.drop(1))
+            partita=""
+        }, modifier= Modifier.constrainAs(buttons){
+            top.linkTo(textPartita.bottom)
+        })()
 
     }
 
