@@ -1,5 +1,14 @@
 package com.example.simon_consegna_intermedia
+import com.example.simon_consegna_intermedia.ui.components.ColumnMatrix
 
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.background
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.style.TextAlign
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,6 +35,8 @@ import androidx.compose.foundation.layout.height
 import androidx.constraintlayout.compose.Dimension
 import androidx.compose.ui.platform.LocalConfiguration
 import com.example.simon_consegna_intermedia.ui.theme.Simon_Consegna_IntermediaTheme
+import com.example.simon_consegna_intermedia.ui.theme.colorMap
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,76 +53,41 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun mainActivityScreen(modifier: Modifier= Modifier){
-    val colorList= listOf(
-        R.color.R,
-        R.color.B,
-        R.color.C,
-        R.color.M,
-        R.color.V,
-        R.color.Y)
-    val colorName=listOf("R","B","C","M","V","Y")
+    val colorName=colorMap.keys.toList()
+
     val partite=mutableListOf<String>()
-    var partita=""
+    var partita by remember { mutableStateOf<String>("") }
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     ConstraintLayout(modifier = modifier.fillMaxWidth()) {
-        val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+        val (columnMatrix, textPartita)=createRefs()
 
-        val (col1, col2) = createRefs()
-
-        Column(
+        ColumnMatrix(
+            screenHeight = screenHeight*0.8f,
+            modifier= Modifier.constrainAs(columnMatrix){
+                top.linkTo(parent.top)
+                start.linkTo(parent.start)
+            },
+            onClick = { color -> partita += ",$color" }
+        )()
+        val scroll = rememberScrollState()
+        Text(
+            text = partita.drop(1),
             modifier = Modifier
-                .constrainAs(col1) {
-                    start.linkTo(parent.start, margin = 16.dp)
-                    end.linkTo(col2.start, margin = 16.dp)
-                    top.linkTo(parent.top)
-                    width = Dimension.fillToConstraints
-                }
-        ) {
-            var i = 0
-            while (i < colorList.size) {
-                Spacer(modifier= Modifier.height(16.dp))
-                Button(
-                    colors = ButtonColors(
-                        colorResource(colorList[i]),
-                        colorResource(colorList[i]),
-                        colorResource(colorList[i]),
-                        colorResource(colorList[i])
-                    ),
-                    onClick = { partita += "," + colorName[i] },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(screenHeight/colorList.size)
-                ) {}
-                i += 2
-            }
-        }
+                .background(Color(0x22000000)) // grigio trasparente
+                .fillMaxWidth()
+                .padding(18.dp)
+                .heightIn(min = 60.dp, max = 60.dp)   // spazio fisso ≈ 3 righe
+                .verticalScroll(scroll)
+                .constrainAs(textPartita){
+                    top.linkTo(columnMatrix.bottom)
+                },
+            textAlign = TextAlign.Center,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Italic
+        )
 
-        Column(
-            modifier = Modifier
-                .constrainAs(col2) {
-                    start.linkTo(col1.end, margin = 16.dp)
-                    end.linkTo(parent.end, margin = 16.dp)
-                    top.linkTo(parent.top)
-                    width = Dimension.fillToConstraints
-                }
-        ) {
-            var i = 1
-            while (i < colorList.size) {
-                Spacer(modifier= Modifier.height(16.dp))
-                Button(
-                    colors = ButtonColors(
-                        colorResource(colorList[i]),
-                        colorResource(colorList[i]),
-                        colorResource(colorList[i]),
-                        colorResource(colorList[i])
-                    ),
-                    onClick = { partita += "," + colorName[i] },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(screenHeight/colorList.size)
-                ) {}
-                i += 2
-            }
-        }
+
     }
 
 
