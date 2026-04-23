@@ -1,4 +1,5 @@
 package com.example.simon_consegna_intermedia.ui.main
+import android.content.Intent
 import com.example.simon_consegna_intermedia.ui.components.ColumnMatrix
 
 import android.os.Bundle
@@ -13,7 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalConfiguration
+import com.example.simon_consegna_intermedia.ui.SecondActivity.SecondActivity
 import com.example.simon_consegna_intermedia.ui.components.GameButton
 import com.example.simon_consegna_intermedia.ui.components.GameText
 import com.example.simon_consegna_intermedia.ui.theme.Simon_Consegna_IntermediaTheme
@@ -26,7 +29,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             Simon_Consegna_IntermediaTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    mainActivityScreen(Modifier.padding(innerPadding),{})
+                    mainActivityScreen(Modifier.padding(innerPadding),{partite->
+                        val intent = Intent(this, SecondActivity::class.java)
+                        intent.putStringArrayListExtra("partite", ArrayList(partite))
+                        startActivity(intent)
+
+                    })
                 }
             }
         }
@@ -34,11 +42,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun mainActivityScreen(modifier: Modifier= Modifier, onClickNewActivity:()->Unit){
+fun mainActivityScreen(modifier: Modifier= Modifier, onClickNewActivity:(ArrayList<String>)->Unit){
     val colorName=colorMap.keys.toList()
 
-    val partite=mutableListOf<String>()
-    var partita by remember { mutableStateOf<String>("") }
+    val partite = rememberSaveable { mutableListOf<String>()           }
+    var partita by rememberSaveable { mutableStateOf<String>("") }
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     ConstraintLayout(modifier = modifier.fillMaxWidth()) {
         val (columnMatrix, textPartita,buttons)=createRefs()
@@ -58,7 +66,7 @@ fun mainActivityScreen(modifier: Modifier= Modifier, onClickNewActivity:()->Unit
         GameButton({partita=""},{
             partite.add(partita.drop(1))
             partita=""
-            onClickNewActivity()
+            onClickNewActivity(ArrayList(partite))
         }, modifier= Modifier.constrainAs(buttons){
             top.linkTo(textPartita.bottom)
         })()
