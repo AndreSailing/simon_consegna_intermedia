@@ -27,8 +27,7 @@ fun GameList(modifier: Modifier,partite: ArrayList<String>){
         LazyColumn(modifier= Modifier.constrainAs(col1){
             top.linkTo(parent.top)
             start.linkTo(parent.start)
-            }) { item() {
-            for (i in 0 until partite.size step 1) {
+            }) { items(partite.size) {i->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -56,7 +55,7 @@ fun GameList(modifier: Modifier,partite: ArrayList<String>){
                     color = MaterialTheme.colorScheme.outlineVariant
                 )
 
-            }
+
             }
         }
 
