@@ -14,7 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.lang.reflect.Modifier
 
 @Composable
 fun GameText(partita: String, modifier:  androidx.compose.ui.Modifier){
@@ -32,6 +31,7 @@ fun GameText(partita: String, modifier:  androidx.compose.ui.Modifier){
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Italic
+
     )
 
 }

@@ -2,4 +2,5 @@
     <string name="app_name">Simon_Consegna_Intermedia</string>
     <string name="b1Text">Cancella</string>
     <string name="b2Text">Fine partita</string>
+    <string name="title">Partite</string>
 </resources>
