@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,8 +42,6 @@ class SecondActivity : ComponentActivity() {
 @Composable
 fun SecondScreen(modifier: Modifier,partite:ArrayList<String>){
     ConstraintLayout(modifier=modifier.fillMaxWidth()
-            .verticalScroll(rememberScrollState())
-
     ) {
         val (gameText,title,spacer1,spacer2)=createRefs()
         Spacer(modifier= Modifier.constrainAs(spacer1){

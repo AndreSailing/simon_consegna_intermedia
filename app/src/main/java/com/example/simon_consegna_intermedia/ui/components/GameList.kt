@@ -27,7 +27,7 @@ fun GameList(modifier: Modifier,partite: ArrayList<String>){
         LazyColumn(modifier= Modifier.constrainAs(col1){
             top.linkTo(parent.top)
             start.linkTo(parent.start)
-            }) { items(partite.size) { i ->
+            }) { item() {
             for (i in 0 until partite.size step 1) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
