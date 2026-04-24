@@ -21,7 +21,7 @@ class Screen(
     @Composable
     operator fun invoke(){
         val partite = rememberSaveable { mutableListOf<String>()           }
-        var partita by rememberSaveable { mutableStateOf<String>("") }
+        var partita by rememberSaveable { mutableStateOf("") }
         val configuration= LocalConfiguration.current
         when(configuration.orientation){
             Configuration.ORIENTATION_PORTRAIT->{
@@ -48,7 +48,7 @@ class Screen(
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                 },
-                onClick = { color -> partitaChange(partita +",$color") }
+                onClick = { color -> partitaChange("$partita,$color") }
             )()
             GameText(partita.drop(1),  Modifier.constrainAs(textPartita){
                 top.linkTo(columnMatrix.bottom)
