@@ -47,6 +47,3 @@ La lingua viene selezionata automaticamente in base alle impostazioni del dispos
 3. Avvia l’app su un dispositivo fisico o emulatore
 
 ---
-
-## 📄 Licenza
-Progetto realizzato per scopi didattici.
