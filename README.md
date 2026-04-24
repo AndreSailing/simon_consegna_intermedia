@@ -41,7 +41,7 @@ La lingua viene selezionata automaticamente in base alle impostazioni del dispos
 
 ---
 
-##Installazione
+## Installazione
 1. Clona la repository  
 2. Apri il progetto con **Android Studio**  
 3. Avvia l’app su un dispositivo fisico o emulatore
